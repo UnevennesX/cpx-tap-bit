@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Links CPX</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #d4d4d4;
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background: #252525;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+            width: 90%;
+            max-width: 450px;
+        }
+        h1 {
+            font-size: 26px;
+            color: #9ccc65;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+        p {
+            font-size: 15px;
+            color: #b0bec5;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        input {
+            width: calc(100% - 20px);
+            padding: 12px;
+            font-size: 15px;
+            background-color: #333;
+            color: #eee;
+            border: 1px solid #555;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            outline: none;
+        }
+        input:focus {
+            border-color: #9ccc65;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            background-color: #66bb6a;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #4caf50;
+        }
+        #output {
+            margin-top: 20px;
+            background-color: #2a2a2a;
+            padding: 15px;
+            border-radius: 5px;
+            color: #81d4fa;
+            font-size: 14px;
+            word-break: break-word;
+            white-space: pre-wrap;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            display: none;
+        }
+       .copy-message {
+            color: #9ccc65;
+            font-size: 16px;
+            margin-top: 5px;
+            font-style: italic;
+            opacity: 0; /* Initially transparent */
+            transform: translateY(-10px); /* Start slightly above */
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out; /* Smooth fade-in and move-up */
+        }
+
+        .copy-message.show-copy {
+           opacity: 1;
+           transform: translateY(0);
+        }
+        .error-message {
+            color: #ff5252;
+            font-style: italic;
+            margin-top: 10px;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Generador de Links CPX</h1>
+        <p>Pega el enlace de "tap" para generar el nuevo enlace:</p>
+        <input type="text" id="inputURL" placeholder="Pega el enlace aquí" />
+        <button onclick="generateLink()">Generar y Copiar Enlace</button>
+        <div id="output"></div>
+    </div>
+
+    <script>
+         function generateLink() {
+            const inputText = document.getElementById('inputURL').value.trim();
+           const outputDiv = document.getElementById('output');
+           outputDiv.innerHTML = "";
+            outputDiv.classList.remove("error-message");
+            outputDiv.style.display = 'block';
+            
+            const urlRegex = /(https?:\/\/[^\s]+)/g;
+            const match = inputText.match(urlRegex);
+
+            let url = match ? match[0] : null;
+
+
+            if (!url) {
+               outputDiv.classList.add("error-message");
+               outputDiv.innerHTML = "Por favor, ingresa un enlace válido.";
+              return;
+           }
+
+            try {
+                const urlObj = new URL(url);
+                const uid = urlObj.searchParams.get("uid");
+
+                 if (uid) {
+                    const newLink = `https://offers.cpx-research.com/index.php?app_id=24918&ext_user_id=${uid}`;
+                    outputDiv.innerHTML = `<p>¡Enlace generado correctamente!</p><p>${newLink}</p>`;
+
+                     navigator.clipboard.writeText(newLink)
+                        .then(() => {
+                          const copyMessage =  document.createElement('p');
+                             copyMessage.classList.add("copy-message");
+                             copyMessage.textContent =  "Enlace copiado automáticamente"
+                            outputDiv.appendChild(copyMessage)
+
+                           setTimeout(() => {
+                                 copyMessage.classList.add("show-copy")
+                            },10)
+
+                            
+                         })
+                        .catch(() => {
+                             outputDiv.classList.add("error-message");
+                           outputDiv.innerHTML += "<p> No se pudo copiar el enlace al portapapeles.</p>"
+                        });
+                } else {
+                    outputDiv.classList.add("error-message");
+                   outputDiv.innerHTML = "No se encontró un UID en el enlace proporcionado.";
+                }
+
+            } catch (error) {
+               outputDiv.classList.add("error-message");
+               outputDiv.innerHTML = "El enlace ingresado no es válido. Intenta de nuevo.";
+            }
+        }
+    </script>
+</body>
+</html>
