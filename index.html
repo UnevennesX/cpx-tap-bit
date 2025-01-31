@@ -5,164 +5,303 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generador de Links CPX</title>
     <style>
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #81C784;
+            --background: #1A1A1A;
+            --surface: #252525;
+            --text-primary: #FFFFFF;
+            --text-secondary: #B0BEC5;
+            --error: #EF5350;
+        }
+
         body {
-            background-color: #1a1a1a;
-            color: #d4d4d4;
+            background-color: var(--background);
+            color: var(--text-primary);
             font-family: 'Roboto', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
-        }
-        .container {
-            text-align: center;
-            background: #252525;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
-            width: 90%;
-            max-width: 450px;
-        }
-        h1 {
-            font-size: 26px;
-            color: #9ccc65;
-            margin-bottom: 20px;
-            letter-spacing: 0.5px;
-            font-weight: 500;
-        }
-        p {
-            font-size: 15px;
-            color: #b0bec5;
-            margin-bottom: 20px;
             line-height: 1.6;
         }
-        input {
-            width: calc(100% - 20px);
-            padding: 12px;
-            font-size: 15px;
-            background-color: #333;
-            color: #eee;
-            border: 1px solid #555;
-            border-radius: 5px;
-            margin-bottom: 15px;
-            outline: none;
-        }
-        input:focus {
-            border-color: #9ccc65;
-        }
-        button {
+
+        .container {
+            background: var(--surface);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
             width: 100%;
-            padding: 12px;
-            font-size: 16px;
-            background-color: #66bb6a;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        button:hover {
-            background-color: #4caf50;
-        }
-        #output {
-            margin-top: 20px;
-            background-color: #2a2a2a;
-            padding: 15px;
-            border-radius: 5px;
-            color: #81d4fa;
-            font-size: 14px;
-            word-break: break-word;
-            white-space: pre-wrap;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-            display: none;
-        }
-       .copy-message {
-            color: #9ccc65;
-            font-size: 16px;
-            margin-top: 5px;
-            font-style: italic;
-            opacity: 0; /* Initially transparent */
-            transform: translateY(-10px); /* Start slightly above */
-            transition: opacity 0.3s ease-out, transform 0.3s ease-out; /* Smooth fade-in and move-up */
+            max-width: 500px;
+            margin: 1rem;
+            transition: transform 0.3s ease;
         }
 
-        .copy-message.show-copy {
-           opacity: 1;
-           transform: translateY(0);
+        .container:hover {
+            transform: translateY(-2px);
         }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        input {
+            width: 88%;
+            padding: 1rem;
+            background: #333;
+            border: 2px solid #444;
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        button:hover {
+            background: #45A049;
+            transform: translateY(-1px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        #output {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            background: #2A2A2A;
+            position: relative;
+            display: none;
+        }
+
+        .success {
+            border: 2px solid var(--primary-color);
+        }
+
+        .error {
+            border: 2px solid var(--error);
+        }
+
+        .feedback-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            background: var(--surface);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.4s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .feedback-message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .success-message {
+            border-left: 4px solid var(--primary-color);
+        }
+
         .error-message {
-            color: #ff5252;
-            font-style: italic;
-            margin-top: 10px;
+            border-left: 4px solid var(--error);
+        }
+
+        .loader {
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .credits {
+            text-align: center;
+            margin-top: 2rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <div class="container">
-        <h1>Generador de Links CPX</h1>
-        <p>Pega el enlace de "tap" para generar el nuevo enlace:</p>
-        <input type="text" id="inputURL" placeholder="Pega el enlace aquí" />
-        <button onclick="generateLink()">Generar y Copiar Enlace</button>
+        <h1>
+            <i class="fas fa-link"></i>
+            <i class="fas fa-link"></i>
+               Link > CPX
+        </h1>
+        
+        <div class="input-group">
+            <input type="text" id="inputURL" placeholder="Pega tu enlace aquí" autofocus>
+        </div>
+
+        <button onclick="generateLink()">
+            <span class="loader" id="loader"></span>
+            <span id="buttonText">Generar y Copiar Enlace</span>
+        </button>
+
         <div id="output"></div>
+        <div class="credits">
+            Herramienta profesional de generación de enlaces
+        </div>
     </div>
 
-    <script>
-         function generateLink() {
-            const inputText = document.getElementById('inputURL').value.trim();
-           const outputDiv = document.getElementById('output');
-           outputDiv.innerHTML = "";
-            outputDiv.classList.remove("error-message");
-            outputDiv.style.display = 'block';
+    <div id="feedback" class="feedback-message">
+        <i class="fas fa-check-circle"></i>
+        <span>Enlace copiado exitosamente!</span>
+    </div>
+
+
+
+
+
+  <script>
+        function autoClearFields() {
+            const input = document.getElementById('inputURL');
+            const output = document.getElementById('output');
             
-            const urlRegex = /(https?:\/\/[^\s]+)/g;
-            const match = inputText.match(urlRegex);
+            input.value = '';
+            output.style.display = 'none';
+            input.focus();
+        }
 
-            let url = match ? match[0] : null;
+        setInterval(autoClearFields, 60000);
 
+        async function generateLink() {
+            const input = document.getElementById('inputURL');
+            const output = document.getElementById('output');
+            const loader = document.getElementById('loader');
+            const buttonText = document.getElementById('buttonText');
+            const feedback = document.getElementById('feedback');
 
-            if (!url) {
-               outputDiv.classList.add("error-message");
-               outputDiv.innerHTML = "Por favor, ingresa un enlace válido.";
-              return;
-           }
+            output.style.display = 'none';
+            feedback.classList.remove('show', 'success-message', 'error-message');
+            loader.style.display = 'inline-block';
+            buttonText.style.opacity = '0.5';
 
             try {
+                const text = input.value.trim();
+                if (!text) throw new Error('Ingresa un texto con enlace válido');
+
+                // Expresión regular mejorada para ambos casos
+                const urlMatch = text.match(/https?:\/\/[^\s]+\?(?:.*[&?](?:ext_user_id|uid)=[a-fA-F0-9-]+)/i);
+                if (!urlMatch) throw new Error('Enlace no contiene UID/ext_user_id');
+                
+                const url = urlMatch[0];
                 const urlObj = new URL(url);
-                const uid = urlObj.searchParams.get("uid");
+                
+                // Buscar ambos parámetros posibles
+                const userId = urlObj.searchParams.get('ext_user_id') || 
+                              urlObj.searchParams.get('uid') || 
+                              urlObj.searchParams.get('user_id');
+                
+                if (!userId) throw new Error('No se encontró UID/ext_user_id en el enlace');
 
-                 if (uid) {
-                    const newLink = `https://offers.cpx-research.com/index.php?app_id=24918&ext_user_id=${uid}`;
-                    outputDiv.innerHTML = `<p>¡Enlace generado correctamente!</p><p>${newLink}</p>`;
-
-                     navigator.clipboard.writeText(newLink)
-                        .then(() => {
-                          const copyMessage =  document.createElement('p');
-                             copyMessage.classList.add("copy-message");
-                             copyMessage.textContent =  "Enlace copiado automáticamente"
-                            outputDiv.appendChild(copyMessage)
-
-                           setTimeout(() => {
-                                 copyMessage.classList.add("show-copy")
-                            },10)
-
-                            
-                         })
-                        .catch(() => {
-                             outputDiv.classList.add("error-message");
-                           outputDiv.innerHTML += "<p> No se pudo copiar el enlace al portapapeles.</p>"
-                        });
-                } else {
-                    outputDiv.classList.add("error-message");
-                   outputDiv.innerHTML = "No se encontró un UID en el enlace proporcionado.";
+                const newLink = `https://offers.cpx-research.com/index.php?app_id=24918&ext_user_id=${userId}`;
+                
+                try {
+                    await navigator.clipboard.writeText(newLink);
+                } catch (err) {
+                    const textarea = document.createElement('textarea');
+                    textarea.value = newLink;
+                    document.body.appendChild(textarea);
+                    textarea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textarea);
                 }
+                
+                output.innerHTML = `
+                    <div class="success">
+                        <p><i class="fas fa-check-circle"></i> Enlace generado:</p>
+                        <p class="generated-link">${newLink}</p>
+                    </div>
+                `;
+                output.style.display = 'block';
+
+                feedback.innerHTML = `
+                    <i class="fas fa-check-circle"></i>
+                    <span>Enlace copiado!</span>
+                `;
+                feedback.classList.add('show', 'success-message');
+                
+                setTimeout(() => input.value = '', 1000);
 
             } catch (error) {
-               outputDiv.classList.add("error-message");
-               outputDiv.innerHTML = "El enlace ingresado no es válido. Intenta de nuevo.";
+                output.innerHTML = `
+                    <div class="error">
+                        <p><i class="fas fa-exclamation-triangle"></i> ${error.message}</p>
+                    </div>
+                `;
+                output.style.display = 'block';
+
+                feedback.innerHTML = `
+                    <i class="fas fa-times-circle"></i>
+                    <span>${error.message}</span>
+                `;
+                feedback.classList.add('show', 'error-message');
+
+            } finally {
+                loader.style.display = 'none';
+                buttonText.style.opacity = '1';
+                setTimeout(() => feedback.classList.remove('show'), 3000);
             }
         }
+
+        document.getElementById('inputURL').addEventListener('click', function() {
+            this.select();
+        });
     </script>
+
+
+
+
+
 </body>
 </html>
