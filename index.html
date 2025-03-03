@@ -7,13 +7,16 @@
         <link rel="icon" type="image/png" href="https://cdn.dribbble.com/users/7549673/screenshots/17206704/media/1210a9d0ec8af427967e735935861eeb.png?resize=400x300&vertical=center" />
     <style>
         :root {
-            --primary-color: #4CAF50;
-            --secondary-color: #81C784;
-            --background: #1A1A1A;
-            --surface: #252525;
-            --text-primary: #FFFFFF;
+            /* Paleta de colores más moderna */
+            --primary-color: #64B5F6; /* Un azul más vibrante */
+            --secondary-color: #90CAF9;
+            --background: #121212; /* Gris oscuro, casi negro */
+            --surface: #1E1E1E; /* Un poco más claro que el background */
+            --text-primary: #EEEEEE; /* Gris muy claro */
             --text-secondary: #B0BEC5;
-            --error: #EF5350;
+            --error: #F44336; /* Rojo más llamativo */
+            --success: #4CAF50; /* Verde éxito */
+            --accent-color: #EEEEEE; /* Blanco casi puro */
         }
 
         body {
@@ -26,97 +29,136 @@
             min-height: 100vh;
             margin: 0;
             line-height: 1.6;
+            /* Animación sutil del fondo */
+            background-image: linear-gradient(45deg, var(--background) 25%, #181818 50%, var(--background) 75%, #181818 100%);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         .container {
             background: var(--surface);
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            padding: 2.5rem; /* Aumenta el padding */
+            border-radius: 16px; /* Bordes más redondeados */
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4); /* Sombra más pronunciada */
             width: 100%;
-            max-width: 500px;
+            max-width: 550px; /* Un poco más ancho */
             margin: 1rem;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Transiciones más suaves */
         }
 
         .container:hover {
-            transform: translateY(-2px);
+            transform: translateY(-4px); /* Eleva más al hacer hover */
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5); /* Sombra aún más intensa */
         }
 
         h1 {
             color: var(--primary-color);
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
+            font-size: 2.2rem; /* Más grande el título */
+            margin-bottom: 2rem; /* Más espacio debajo del título */
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            justify-content: center; /* Centra los elementos del título */
+            gap: 0.75rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Sombra en el texto del título */
         }
 
         .input-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem; /* Más espacio debajo del input */
             position: relative;
         }
 
         input {
-            width: 88%;
-            padding: 1rem;
-            background: #333;
-            border: 2px solid #444;
-            border-radius: 8px;
+            width: 92%; /* Ocupa todo el ancho del contenedor */
+            padding: 1.2rem; /* Aumenta el padding */
+            background: #2C2C2C; /* Un gris un poco más claro */
+            border: 2px solid #3E3E3E; /* Borde más sutil */
+            border-radius: 10px; /* Bordes más redondeados */
             color: var(--text-primary);
-            font-size: 1rem;
-            transition: all 0.3s ease;
+            font-size: 1.1rem; /* Aumenta el tamaño de la fuente */
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         input:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+            border-color: #EEEEEE; /* Color de acento al enfocar */
+            box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.2); /* Sombra al enfocar, blanco */
             outline: none;
         }
 
         button {
-            width: 95%;
-            padding: 1rem;
+            width: 100%; /* Ocupa todo el ancho */
+            padding: 1.2rem; /* Aumenta el padding */
             background: var(--primary-color);
-            color: white;
+            color: #000000;
             border: none;
-            border-radius: 8px;
-            font-size: 1rem;
+            border-radius: 10px; /* Bordes más redondeados */
+            font-size: 1.1rem; /* Aumenta el tamaño de la fuente */
             font-weight: 500;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.2s ease; /* Transiciones más suaves */
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra sutil */
         }
 
         button:hover {
-            background: #45A049;
-            transform: translateY(-1px);
+            background: #5393F4; /* Un tono más claro al hacer hover */
+            transform: translateY(-2px); /* Eleva un poco al hacer hover */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Sombra más intensa al hacer hover */
         }
 
         button:active {
-            transform: translateY(0);
+            transform: translateY(0); /* Elimina la elevación al hacer click */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra más suave al hacer click */
         }
 
         #output {
-            margin-top: 1.5rem;
-            padding: 1rem;
-            border-radius: 8px;
+            margin-top: 2rem; /* Más espacio arriba */
+            padding: 1.5rem; /* Aumenta el padding */
+            border-radius: 12px; /* Bordes más redondeados */
             background: #2A2A2A;
             position: relative;
-            display: none;
+            display: none; /* Inicialmente oculto */
+            animation: fadeIn 0.4s ease-in-out; /* Animación de aparición */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .success {
-            border: 2px solid var(--primary-color);
+            border: 2px solid var(--success);
+            border-radius: 8px; /* Añadido borde redondeado */
+            padding: 1rem; /* Añadido padding */
         }
 
         .error {
             border: 2px solid var(--error);
+            border-radius: 8px; /* Añadido borde redondeado */
+            padding: 1rem; /* Añadido padding */
         }
 
+        /* Estilos para los mensajes de feedback */
         .feedback-message {
             position: fixed;
             top: 20px;
@@ -131,6 +173,7 @@
             display: flex;
             align-items: center;
             gap: 0.8rem;
+            z-index: 10; /* Asegura que esté por encima de otros elementos */
         }
 
         .feedback-message.show {
@@ -139,7 +182,7 @@
         }
 
         .success-message {
-            border-left: 4px solid var(--primary-color);
+            border-left: 4px solid var(--success);
         }
 
         .error-message {
@@ -147,10 +190,10 @@
         }
 
         .loader {
-            width: 20px;
-            height: 20px;
+            width: 24px; /* Un poco más grande */
+            height: 24px;
             border: 3px solid #f3f3f3;
-            border-top: 3px solid var(--primary-color);
+            border-top: 3px solid var(--accent-color); /* Usa el color de acento */
             border-radius: 50%;
             animation: spin 1s linear infinite;
             display: none;
@@ -163,9 +206,22 @@
 
         .credits {
             text-align: center;
-            margin-top: 2rem;
+            margin-top: 3rem; /* Más espacio arriba */
             color: var(--text-secondary);
             font-size: 0.9rem;
+            opacity: 0.7; /* Un poco más transparente */
+        }
+
+        .credits:hover {
+            opacity: 1; /* Opacidad completa al hacer hover */
+            transition: opacity 0.3s ease; /* Transición suave */
+        }
+
+        /* Estilo para el enlace generado */
+        .generated-link {
+            word-break: break-all; /* Evita que el enlace se salga del contenedor */
+            color: var(--secondary-color); /* Un color más suave */
+            font-size: 1rem; /* Tamaño de fuente más pequeño */
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
@@ -176,12 +232,13 @@
         <h1>
 
             <i class="fas fa-link"></i>
-               Link > CPX
+               CPX-RESEARCH
+
+               
             
             <i class="fas fa-link"></i>
 
-               < TAP Link
-            <i class="fas fa-link"></i>
+               
                    
         </h1>
         
@@ -196,7 +253,7 @@
 
         <div id="output"></div>
         <div class="credits">
-            Herramienta profesional de generación de enlaces
+            Herramienta de generación de enlaces cpx-research
         </div>
     </div>
 
@@ -213,7 +270,7 @@
         function autoClearFields() {
             const input = document.getElementById('inputURL');
             const output = document.getElementById('output');
-            
+
             input.value = '';
             output.style.display = 'none';
             input.focus();
@@ -228,8 +285,9 @@
             const buttonText = document.getElementById('buttonText');
             const feedback = document.getElementById('feedback');
 
-            output.style.display = 'none';
+            output.style.display = 'none'; // Asegura que el output esté oculto al inicio
             feedback.classList.remove('show', 'success-message', 'error-message');
+
             loader.style.display = 'inline-block';
             buttonText.style.opacity = '0.5';
 
@@ -240,19 +298,19 @@
                 // Expresión regular mejorada para ambos casos
                 const urlMatch = text.match(/https?:\/\/[^\s]+\?(?:.*[&?](?:ext_user_id|uid)=[a-fA-F0-9-]+)/i);
                 if (!urlMatch) throw new Error('Enlace no contiene UID/ext_user_id');
-                
+
                 const url = urlMatch[0];
                 const urlObj = new URL(url);
-                
+
                 // Buscar ambos parámetros posibles
-                const userId = urlObj.searchParams.get('ext_user_id') || 
-                              urlObj.searchParams.get('uid') || 
+                const userId = urlObj.searchParams.get('ext_user_id') ||
+                              urlObj.searchParams.get('uid') ||
                               urlObj.searchParams.get('user_id');
-                
+
                 if (!userId) throw new Error('No se encontró UID/ext_user_id en el enlace');
 
                 const newLink = `https://offers.cpx-research.com/index.php?app_id=24918&ext_user_id=${userId}`;
-                
+
                 try {
                     await navigator.clipboard.writeText(newLink);
                 } catch (err) {
@@ -263,7 +321,7 @@
                     document.execCommand('copy');
                     document.body.removeChild(textarea);
                 }
-                
+
                 output.innerHTML = `
                     <div class="success">
                         <p><i class="fas fa-check-circle"></i> Enlace generado:</p>
@@ -277,16 +335,12 @@
                     <span>Enlace copiado!</span>
                 `;
                 feedback.classList.add('show', 'success-message');
-                
+
                 setTimeout(() => input.value = '', 1000);
 
             } catch (error) {
-                output.innerHTML = `
-                    <div class="error">
-                        <p><i class="fas fa-exclamation-triangle"></i> ${error.message}</p>
-                    </div>
-                `;
-                output.style.display = 'block';
+                // El #output NO se muestra
+                //output.style.display = 'block';
 
                 feedback.innerHTML = `
                     <i class="fas fa-times-circle"></i>
@@ -301,14 +355,17 @@
             }
         }
 
-        document.getElementById('inputURL').addEventListener('click', function() {
+        document.getElementById('inputURL').addEventListener('focus', function() {
             this.select();
         });
+
+        // Agrega esta parte para que funcione con Enter
+        document.getElementById('inputURL').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // Evita el comportamiento por defecto del Enter
+                generateLink(); // Llama a la función para generar el link
+            }
+        });
     </script>
-
-
-
-
-
 </body>
 </html>
